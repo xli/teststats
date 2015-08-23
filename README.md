@@ -30,7 +30,7 @@ instructions:
 ## Output example
 
 ![test-unit test count history](demo/test_unit.png)
-![rspec test count history](demo/rspec.png)
+![rspec test count history](demo/rspec_core.png)
 
 ## Development
 
