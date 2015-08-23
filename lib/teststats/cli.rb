@@ -8,13 +8,11 @@ module Teststats
     DEFAULTS = {
       'test_unit' => {
         :pattern => '*_test.rb',
-        :directory => 'test',
-        :test_regex => /^\s+def test_/
+        :directory => 'test'
       },
       'rspec' => {
         :pattern => '*_spec.rb',
-        :directory => 'spec',
-        :test_regex => /^\s+it ["']/
+        :directory => 'spec'
       }
     }
     desc "count", "Test count growing stats. Notice, this command will checkout old revisions to count tests, recommend a clean repository to avoid problem."
@@ -57,12 +55,13 @@ module Teststats
         puts "Unsupported framework #{name.inspect}, options: #{DEFAULTS.keys.inspect}"
         exit(1)
       end
+      test_regex = /^\s+(def\s+test_|test\s+['"]|it\s+['"])/
       f = {:name => name}
       DEFAULTS[name].each do |k, v|
         f[k] = options[k] || v
       end
       f[:test_files] = [f[:directory], '**', f[:pattern]].join("/")
-      f[:count] = lambda {|file| File.read(file).split("\n").map {|l| l =~ f[:test_regex] ? 1 : 0}.reduce(:+).to_i}
+      f[:count] = lambda {|file| File.read(file).split("\n").map {|l| l =~ test_regex ? 1 : 0}.reduce(:+).to_i}
       OpenStruct.new(f)
     end
 
