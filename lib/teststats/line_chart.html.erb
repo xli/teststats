@@ -32,9 +32,9 @@ body {
 <script>
 var yAxisLabel = 'Test Count';
 var data = <%= data.to_json %>;
-var margin = {top: 20, right: 50, bottom: 30, left: 50},
-    width = window.innerWidth - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+var margin = {top: 20, right: 50, bottom: 150, left: 50},
+    width = window.innerWidth - 20 - margin.left - margin.right,
+    height = window.innerHeight - 20 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 
